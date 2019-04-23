@@ -1,0 +1,1 @@
+This code extremely repetitively checks the in-memory representation of the list to see if it is nil or not. Turns out nil is unboxed whereas all other lists are boxed.

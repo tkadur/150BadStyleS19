@@ -1,0 +1,78 @@
+sml
+name CNotParseFun
+
+terminal ADD precr 12
+terminal SUB precr 12
+terminal MULT precr 13
+
+terminal NUMBER of int
+terminal IDENT of string
+terminal LPAREN
+terminal RPAREN
+
+terminal EQUAL precl 9
+terminal NOTEQUAL precl 9
+terminal LESS precl 10
+terminal LESSEQUAL precl 10
+terminal GREATER precl 10
+terminal GREATEREQUAL precl 10
+
+terminal TRUE
+terminal FALSE
+terminal AND precl 5
+terminal OR precl 4
+terminal NOT precr 14
+
+terminal ASSIGN precr 2
+terminal SEMI
+terminal IF
+terminal LBRACE
+terminal RBRACE
+terminal ELSE
+terminal LOOP
+terminal WHILE
+terminal BREAK
+terminal CONTINUE
+terminal RETURN
+
+
+nonterminal Aexp : aexp =
+    LPAREN 1:Aexp RPAREN => aexp_id
+    1:IDENT => aexp_ident
+    1:NUMBER => aexp_number
+    1:Aexp ADD 2:Aexp => aexp_add
+    1:Aexp SUB 2:Aexp => aexp_sub
+    1:Aexp MULT 2:Aexp => aexp_mult
+
+nonterminal Bexp : bexp =
+    LPAREN 1:Bexp RPAREN => bexp_id
+    TRUE => bexp_true
+    FALSE => bexp_false
+    1:Aexp EQUAL 2:Aexp => bexp_equal
+    1:Aexp NOTEQUAL 2:Aexp => bexp_notequal
+    1:Aexp LESS 2:Aexp => bexp_less
+    1:Aexp LESSEQUAL 2:Aexp => bexp_lessequal
+    1:Aexp GREATER 2:Aexp => bexp_greater
+    1:Aexp GREATEREQUAL 2:Aexp => bexp_greaterequal
+    NOT 1:Bexp => bexp_not
+    1:Bexp AND 2:Bexp => bexp_and
+    1:Bexp OR 2:Bexp => bexp_or
+
+nonterminal Cmd : command =
+    1:IDENT ASSIGN 2:Aexp SEMI => cmd_assign
+    IF LPAREN 1:Bexp RPAREN 2:Block ELSE 3:Block => cmd_if
+    LOOP 1:Block => cmd_loop
+    WHILE LPAREN TRUE RPAREN 1:Block => cmd_loop
+    BREAK SEMI => cmd_break
+    CONTINUE SEMI => cmd_continue
+    RETURN 1:Aexp SEMI => cmd_return
+
+nonterminal Block : commandlist =
+    LBRACE 1:Cmds RBRACE => cmds_id
+    LBRACE RBRACE => cmds_empty
+
+nonterminal Cmds : commandlist =
+    1:Cmd => cmds_one
+    1:Cmd 2:Cmds => cmds_cons
+
+start Cmds

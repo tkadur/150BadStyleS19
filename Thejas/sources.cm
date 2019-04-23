@@ -1,0 +1,37 @@
+group is
+  $/basis.cm
+  $/smlnj-lib.cm
+
+  main.sml
+
+  cnot/cnot.sml
+  cnot/test.sml
+
+  cnot/compiler/compiler.sml
+  cnot/compiler/variable.sml
+  cnot/compiler/dict.sml
+
+  cnot/compiler/asm/asm.sml
+
+  cnot/compiler/ir/bnot/bnot.sml
+  cnot/compiler/ir/anot/anot.sml
+
+  cnot/transpiler/c.sml
+  cnot/transpiler/popen.sml
+  cnot/transpiler/translate.sml
+  cnot/transpiler/transpiler.sml
+
+  cnot/parser/lex.cmlex.sml
+  cnot/parser/lexer.sml
+  cnot/parser/parse.cmyacc.sml
+  cnot/parser/parser.sml
+  cnot/parser/cmlib/lex-engine.sig
+  cnot/parser/cmlib/lex-engine.sml
+  cnot/parser/cmlib/parse-engine.sig
+  cnot/parser/cmlib/parse-engine.sml
+  cnot/parser/cmlib/streamable.sig
+  cnot/parser/cmlib/streamable.sml
+  cnot/parser/cmlib/stream.sig
+  cnot/parser/cmlib/stream.sml
+  cnot/parser/cmlib/susp-nj.sml
+  cnot/parser/cmlib/susp.sig

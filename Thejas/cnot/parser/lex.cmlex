@@ -1,0 +1,68 @@
+sml
+name CNotLexFun
+alphabet 128
+
+set alpha = (range 'a 'z 'A 'Z)
+set digit = (range '0 '9)
+set alphanumeric = (| alpha digit '_ '')
+regexp newline = (| 10 (seq 13 10) 13) /* lf, crlf, cr */
+set white = (| 32 9 12 0)  /* space, tab, ff, null */
+
+function main : t =
+    eos => eof
+    (+ white) => skip
+    newline => skip_newline
+
+    '+ => add
+    '- => sub
+    '* => mult
+
+    '( => lparen
+    ') => rparen
+
+    "==" => equal
+    "!=" => notequal
+    '< => less
+    "<=" => lessequal
+    '> => greater
+    ">=" => greaterequal
+
+    "true" => kwtrue
+    "false" => kwfalse
+    "&&" => land
+    "||" => lor
+    '! => lnot
+
+    ":=" => assign
+    '; => semi
+    "if" => kwif
+    '{ => lbrace
+    '} => rbrace
+    "else" => kwelse
+    "loop" => loop
+    "while" => kwwhile
+    "break" => break
+    "continue" => continue
+    "return" => return
+
+    (seq alpha (* alphanumeric)) => ident
+    (seq (? '~) (+ digit)) => number
+
+
+    "//" => entercommentline
+    "/*" => entercommentblock
+
+    epsilon => error
+
+function commentline : t =
+    eos => eof
+    newline => skip_newline
+    any => entercommentline
+    epsilon => error
+
+function commentblock : t =
+    eos => eof
+    "*/" => skip
+    newline => commentblock_newline
+    any => entercommentblock
+    epsilon => error
