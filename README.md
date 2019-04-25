@@ -52,6 +52,8 @@ Without any further ado, here are the submissions (accompanied by descriptions f
 
 [Click here for the code](https://github.com/tkadur/150BadStyleS19/blob/master/Vijay/badstyle.sml)
 
+> Since our goal is to return false if the list is empty and true if it's nonempty, this submission searches through the list to see if it contains any elements. 
+> If this search encounters any elements in the list, we set the result to true. Otherwise, if after searching through the list we haven't found any elements, we return false.
 
 ##### 5. Jacob
 
